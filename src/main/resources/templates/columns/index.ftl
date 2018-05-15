@@ -2,19 +2,8 @@
 
 <html lang="en">
 <head>
-    <!-- The jQuery library is a prerequisite for all jqSuite products -->
-    <script type="text/ecmascript" src="/js/jquery-1.11.0.min.js"></script>
-    <!-- We support more than 40 localizations -->
-    <script type="text/ecmascript" src="/js/grid.locale-cn.js"></script>
-    <!-- This is the Javascript file of jqGrid -->
-    <script type="text/ecmascript" src="/js/jquery.jqGrid.min.js"></script>
-    <!-- This is the localization file of the grid controlling messages, labels, etc.
-    <!-- A link to a jQuery UI ThemeRoller theme, more than 22 built-in and many more custom -->
-    <link rel="stylesheet" href="/css/bootstrap.min.css">
-    <!-- The link to the CSS that the grid needs -->
-    <link rel="stylesheet" type="text/css" media="screen" href="/css/ui.jqgrid-bootstrap.css"/>
+<#include "../base/cssLink.ftl">
     <meta charset="utf-8"/>
-    <itemName>GRID</itemName>
 </head>
 <body>
 <div class="page-header">
@@ -46,6 +35,7 @@
     <table id="jqGrid"></table>
     <div id="jqGridPager"></div>
 </div>
+<#include "../base/jsLib.ftl">
 <script type="text/javascript">
     function deleteById(id) {
         var url = "http://localhost:8080/columns/delete/" + id;
@@ -56,7 +46,6 @@
     }
 
     $(document).ready(function () {
-
         $("#jqGrid").jqGrid({
             url: 'http://localhost:8080/columns/page',
             mtype: "GET",
@@ -71,7 +60,9 @@
             viewrecords: true,
 //            loadonce: true, // this is just for the demo
             rowNum: 20,
+            height:"60%",
             pager: "#jqGridPager",
+            toppager:true,
             jsonReader: {
                 root: "data.result",
                 page: "data.pageNo", //当前页数
@@ -85,7 +76,8 @@
                 rows: "pageSize",
                 sort: "orderBy",
                 order: "order"
-            }
+            },
+            width: 1600
         });
     });
 
