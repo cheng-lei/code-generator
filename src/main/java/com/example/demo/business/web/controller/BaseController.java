@@ -5,6 +5,7 @@ import com.example.demo.framwork.base.PropertyFilter;
 import com.example.demo.framwork.base.model.Page;
 import com.example.demo.framwork.utils.reflect.ReflectionUtils;
 import com.example.demo.framwork.utils.web.ParameterUtils;
+import org.apache.commons.lang3.ArrayUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -72,9 +73,9 @@ public abstract class BaseController<T> {
         }
     }
 
-    @RequestMapping(value = "/beforeSave")
-    public ModelAndView beforeSave(Long id) {
-        ModelAndView modelAndView = new ModelAndView("/" + dirName + "/save");
+    @RequestMapping(value = "/beforeSave/{id}", method = RequestMethod.GET)
+    public ModelAndView beforeSave(@PathVariable Long id) {
+        ModelAndView modelAndView = new ModelAndView("/" + dirName + "/pop-layer-save");
         if (id != null && id > 0L) {
             T t = baseService.selectByPrimaryKey(id);
             modelAndView.addObject("t", t);
@@ -86,6 +87,16 @@ public abstract class BaseController<T> {
     @ResponseBody
     public void delete(@PathVariable Long id) {
         baseService.deleteByPrimaryKey(id);
+    }
+
+    @RequestMapping(value = "/bathDelete")
+    @ResponseBody
+    public void delete(Long[] idArr) {
+        if (ArrayUtils.isNotEmpty(idArr)) {
+            for (Object id : idArr) {
+                baseService.deleteByPrimaryKey(id);
+            }
+        }
     }
 
     public AbstractBaseService<T> getBaseService() {

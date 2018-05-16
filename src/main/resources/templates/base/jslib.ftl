@@ -17,7 +17,7 @@
 <script src="plugins/ztree/js/jquery.ztree.exedit-3.5.min.js"></script>
 <script src="plugins/ztree/js/jquery.ztree.exhide-3.5.min.js"></script>
 <script src="plugins/nprogress-master/nprogress.js"></script>
-<script src="dist/js/catalog.min.js"></script>
+<#--<script src="dist/js/catalog.min.js"></script>-->
 <script src="dist/js/wiki.js?v=${mipVersion!}"></script>
 <!-- We support more than 40 localizations -->
 <script type="text/ecmascript" src="plugins/bootstrap-jgrid/grid.locale-cn.js"></script>

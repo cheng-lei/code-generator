@@ -481,7 +481,7 @@
  -->
 <#macro search hasBack=false onlySubmit=false>
   <div class="form-group">
-    <button class="btn btn-primary btn-sm pad-lr-16" type="submit">搜索</button>
+    <button class="btn btn-primary btn-sm pad-lr-16 my-btn-search" type="button">搜索</button>
     <#if !onlySubmit >
 	    <button type="button" onclick="clearForm(event)" class="btn btn-warning btn-sm pad-lr-16">清空</button>
 	    <#if hasBack >
