@@ -1,50 +1,28 @@
 <!DOCTYPE html>
-
-<html lang="en">
+<html>
 <head>
-<#include "../base/cssLink.ftl">
-    <meta charset="utf-8"/>
+<#include "../base/csslink.ftl">
+  <#include "../base/macro.ftl">
 </head>
-<body>
-<div class="page-header">
-    <form id="searchForm" class="form-inline">
-        <div class="col-md-1"></div>
-        <div class="form-group">
-            <label for="name">数据库：</label>
-            <select class="form-control" name="page_EQS_tableSchema">
-                <option value=""></option>
-            <#list databases as item>
-                <option value="${item}">${item}</option>
-            </#list>
-            </select>
-        </div>
-        <div class="form-group">
-            <button type="button" class="form-control btn-info" id="selectOne">查询</button>
-            <button type="button" class="form-control btn-info" id="generateCode">生成代码</button>
-        </div>
-    </form>
-</div>
-<div>
-    <table>
-        <tr>
-            <td><a href="/columns/beforeSave">新增</a></td>
-        </tr>
-    </table>
-</div>
-<div>
-    <table id="jqGrid"></table>
-    <div id="jqGridPager"></div>
-</div>
-<#include "../base/jsLib.ftl">
+<body class="hold-transition sidebar-mini skin-red overflow">
+<div class="wrapper">
+<#include "../base/header.ftl">
+<#--<#include "../base/sidebar.ftl">-->
+    <!-- start page content -->
+    <div class="content-wrapper">
+    <#--<#include "../base/location.ftl">-->
+        <section class="content no-padding-bottom">
+            <div>
+                <table id="jqGrid"></table>
+                <div id="jqGridPager"></div>
+            </div>
+        </section>
+    </div>
+    <!-- end page content -->
+<#include "../base/footer.ftl">
+    <!-- ref js lib -->
+<#include "../base/jslib.ftl">
 <script type="text/javascript">
-    function deleteById(id) {
-        var url = "http://localhost:8080/columns/delete/" + id;
-        $.getJSON(url, function (result) {
-            console.log(result);
-            $("#jqGrid").trigger("reloadGrid");
-        });
-    }
-
     $(document).ready(function () {
         $("#jqGrid").jqGrid({
             url: 'http://localhost:8080/columns/page',
@@ -76,11 +54,9 @@
                 rows: "pageSize",
                 sort: "orderBy",
                 order: "order"
-            },
-            width: 1600
+            }
         });
     });
-
 </script>
 </body>
 </html>

@@ -1,0 +1,276 @@
+.pop-window {
+    width: 500px;
+    position: absolute;
+    margin: 5px;
+    display: none;
+    border: 2px solid #C7BCBC;
+    -webkit-box-shadow: 0 2px 3px rgba(0, 0, 0, 0.125);
+    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.125);
+    z-index: 1057;
+}
+
+.pop-window .pop-body {
+    height: 412px;
+    background-color: #FFF;
+    font-size: 12px;
+    padding: 5px;
+    overflow: hidden;
+}
+
+.pop-window .pop-body .row-content {
+    position: absolute;
+    bottom: 51px;
+    top: 80px;
+    overflow: auto;
+    padding-bottom: 10px;
+    left: 5px;
+    right: 5px;
+}
+
+.pop-window .pop-footer {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    border-top: 1px solid #EFEFEF;
+    right: 0;
+    padding: 10px;
+    background: #FBFBFB;
+    text-align: right;
+}
+
+.pop-window .pop-footer .btn {
+    margin: 0 3px;
+}
+
+.pop-window .pop-header {
+    padding: 8px;
+    color: #333;
+    font-size: 16px;
+    background: #F3F3F3;
+}
+
+.pop-window .pop-header i {
+    padding: 9px;
+    margin-top: -7px;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.pop-window .pop-header i:hover {
+    background: #E4E2E2;
+}
+
+.pop-mask {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    filter: alpha(opacity=60);
+    background-color: #777;
+    left: 1px;
+    opacity: 0.5;
+    -moz-opacity: 0.5;
+    display: none;
+    z-index: 1055;
+}
+
+/***********************迁移*********************************/
+.border-gray {
+    border: 1px solid #D8D7D7;
+}
+
+.pop-body .second-panel li:hover,
+.pop-body a.header strong:hover {
+    background: #06c;
+    border-radius: 4px;
+    cursor: pointer;
+    color: #FFFFFF;
+    padding: 1px 4px;
+}
+
+.pop-body .second-panel li, .pop-body a.header strong {
+    display: inline-block;
+    padding: 1px 4px;
+    min-width: 110px;
+    text-align: left;
+ }
+
+.pop-body .second-panel li b{
+    position: absolute;
+    overflow: hidden;
+    width: 0;
+    height: 0;
+    border-width: 10px;
+    border-style: solid dashed dashed dashed;
+    margin-top: 8px;
+    margin-left: -17px;
+    border-color: transparent transparent #39CCCC transparent;
+}
+
+.pop-body .second-panel div {
+    margin-top: 7px;
+}
+
+.pop-body .second-panel li.no-select,
+.pop-body a.header strong.no-select,
+.pop-body .second-panel li.no-select:hover,
+.pop-body a.header strong.no-select:hover {
+    color: #C2C2C2;
+    background: none;
+}
+
+.list_select {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 4px;
+}
+
+.no-space-lr {
+    left: 0 !important;
+    right: 0 !important;
+}
+
+.address div {
+    margin: 5px 0;
+}
+
+.child-no-padding-lr div {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.address {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 30px;
+    overflow-y: auto;
+    bottom: 0;
+}
+/***********************************************************/
+
+.pop-body .overlay {
+    position: absolute;
+    top: 38px;
+    bottom: 51px;
+    left: 0;
+    width: 100%;
+    z-index: 50;
+    background: rgba(255,255,255,0.7);
+    border-radius: 3px;
+}
+
+.pop-body .overlay>.fa{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-left: -15px;
+    margin-top: -15px;
+    color: #000;
+    font-size: 60px;
+}
+
+.pop-body>div {
+    position: absolute;
+    bottom: 51px;
+    top: 38px;
+    overflow: auto;
+    left: 0px;
+    right: 0px;
+}
+
+#poplayer-focus {
+    position: absolute;
+    margin-left: -9999px;
+}
+
+/************************************************
+*   MsgBox
+*************************************************/
+#mb_box {
+    width: 100%;
+    height : 100%;
+    z-index : 99999;
+    position : fixed;
+    filter : Alpha(opacity=60);
+    background : black;
+    top : 0;
+    left : 0;
+    opacity : 0.6;
+}
+
+#mb_con {
+    z-index: 999999;
+    width: 400px;
+    position: fixed;
+    background: White;
+    border: 1px solid #C7BCBC;
+    -webkit-box-shadow: 0 2px 3px rgba(0, 0, 0, 0.125);
+    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.125);
+}
+
+#mb_tit {
+    display: block;
+    font-size: 14px;
+    color: #444;
+    padding: 10px 15px;
+    background: #F3F3F3;
+    border-bottom: 3px solid #009BFE;
+    font-weight: bold;
+}
+
+#mb_msg {
+    max-height: 120px;
+    padding: 15px;
+    line-height: 20px;
+    border-bottom: 1px dashed #DDD;
+    min-height: 100px;
+    font-size: 13px;
+    overflow: auto;
+    text-align: center;
+}
+
+#mb_ico {
+    display: block;
+    position: absolute;
+    right: 10px;
+    top: 1px;
+    padding: 9px;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+#mb_btnbox {
+    padding: 10px 5px;
+    text-align: center;
+    background: #FBFBFB;
+}
+
+#mb_btn_ok,#mb_btn_no {
+    width: 85px;
+    height: 30px;
+    color: white;
+    border: none;
+}
+
+#mb_btn_ok {
+    background: #00a65a;
+}
+
+#mb_btn_no {
+    background: gray;
+    margin-left: 20px;
+}
+
+#mb_ico:hover {
+    background: #E4E2E2;
+}
+
+.pop-header>span.title {
+    white-space: nowrap;
+    float: left;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}

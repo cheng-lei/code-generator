@@ -1,0 +1,6 @@
+/**
+* bootstrap-multiselect-btn-group
+* @autor zxj
+* @date 2015/10/30 19:03
+*/
+.bootstrap-multiselect-btn-group .btn input[type="checkbox"]{display:none}.bootstrap-multiselect-btn-group .btn-checked{color:#fff;background-color:#00a65a;border-color:#008d4c}.bootstrap-multiselect-btn-group .btn:focus,.bootstrap-multiselect-btn-group .btn:active,.bootstrap-multiselect-btn-group .btn:hover{border:1px solid #DDD}

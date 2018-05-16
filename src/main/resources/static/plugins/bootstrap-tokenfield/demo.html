@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>MIP媒资管理平台</title>
+  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+  <link rel="stylesheet" href="../../bootstrap/css/bootstrap.css">
+  <link rel="stylesheet" href="http://cdn.bootcss.com/font-awesome/4.4.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="../datatables/dataTables.bootstrap.css">
+  <link rel="stylesheet" href="../../dist/css/AdminLTE.css">
+  <link rel="stylesheet" href="../../dist/css/mipweb.css">
+  <link rel="stylesheet" href="../../dist/css/skins/_all-skins.css">
+  <link rel="stylesheet" href="css/bootstrap-tokenfield.css">
+<body class="hold-transition skin-blue sidebar-mini">
+<div class="wrapper">
+  <!-- start page content -->
+  <div class="content-wrapper" style="margin-left: 0;">
+    <section class="content no-padding-bottom">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="box box-primary">
+            <div class="box-header with-border">
+              <h3 class="box-title">标签信息</h3>
+            </div>
+            <div class="box-body pad-tb-2 min-h600">
+              <div class="pad-lr-16">
+                <form class="form-horizontal" method="post" action="#">
+                  <div class="form-group margin-top-6">
+                    <label for="tagname" class="col-md-2 control-label">标签</label>
+
+                    <div class="col-md-8" id="tagname">
+                      <input type="text" class="form-control" id="tokenfield" value="red,green,blue" />
+                    </div>
+                  </div>
+                  <label>API:http://sliptree.github.io/bootstrap-tokenfield/</label>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+  <!-- end page content -->
+</div>
+
+<!-- ref js lib -->
+<script src="../jQuery/jQuery-2.1.4.min.js"></script>
+<script src="../../bootstrap/js/bootstrap.min.js"></script>
+<script src="bootstrap-tokenfield.js"></script>
+<script src="../../dist/js/app.js"></script>
+<script>
+  $('#tokenfield').on('tokenfield:createtoken', function (e) {
+            var data = e.attrs.value.split('|')
+            e.attrs.value = data[1] || data[0]
+            e.attrs.label = data[1] ? data[0] + ' (' + data[1] + ')' : data[0]
+          })
+
+          .on('tokenfield:createdtoken', function (e) {
+            // Über-simplistic e-mail validation
+            var re = /\S+@\S+\.\S+/
+            var valid = re.test(e.attrs.value)
+            if (!valid) {
+              $(e.relatedTarget).addClass('invalid')
+            }
+          })
+
+          .on('tokenfield:edittoken', function (e) {
+            if (e.attrs.label !== e.attrs.value) {
+              var label = e.attrs.label.split(' (')
+              e.attrs.value = label[0] + '|' + e.attrs.value
+            }
+          })
+
+          .on('tokenfield:removedtoken', function (e) {
+            alert('Token removed! Token value was: ' + e.attrs.value)
+          })
+
+          .tokenfield({
+            createTokensOnBlur:true,
+            delimiter:[',','，']
+          })
+</script>
+</body>
+</html>

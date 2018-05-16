@@ -27,7 +27,7 @@ public abstract class BaseController<T> {
     @RequestMapping(value = "/index", method = RequestMethod.GET)
     public ModelAndView index() {
         ModelAndView modelAndView = new ModelAndView("/" + dirName + "/index");
-        Map<String, Object> modelMap = initConstantMap();
+        Map<String, Object> modelMap = this.initConstantMap();
         modelAndView.addAllObjects(modelMap);
         return modelAndView;
     }
