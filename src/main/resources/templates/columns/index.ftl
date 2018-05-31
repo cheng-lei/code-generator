@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns="http://www.w3.org/1999/html">
 <head>
 <#include "../base/csslink.ftl">
   <#include "../base/macro.ftl">
@@ -85,167 +85,129 @@
 <#include "../base/footer.ftl">
     <!-- ref js lib -->
 <#include "../base/jslib.ftl">
+    <script src="/dist/js/base/Base.Action.js"/></script>
+    <script src="/dist/js/base/Base.Dao.js"/></script>
+    <script src="/dist/js/base/Base.Config.js"/></script>
+    <script src="/dist/js/base/Base.Grid.js"/></script>
+    <script src="/js/Columns.Action.js"/></script>
+    <script src="/js/Columns.Config.js"/></script>
     <script type="text/javascript">
-        $(document).ready(function () {
-            $("#jqGrid").jqGrid({
-                url: 'http://localhost:8080/columns/page',
-                mtype: "GET",
-                datatype: "json",
-                styleUI: 'Bootstrap',
-                colModel: [
-                    {label: 'ID', name: 'id'},
-                    {label: '表名称', name: 'tableName'},
-                    {label: '列名称', name: 'columnName'},
-                    {label: '数据类型', name: 'dataType'},
-                    {label: '注释', name: 'columnComment'},
-                    {
-                        label: '操作', name: 'operation', formatter: function (o, v, r) {
-                        return '<button class="btn btn-primary btn-sm my-btn-add" onclick="saveOrUpdate(this)" data-id='+r.id+'>编辑</button>' +
-                                '|<button class="btn btn-danger btn-sm my-btn-del" onclick="batchDelete(this)" data-id='+r.id+'>删除</button>'
-                    }
-                    }
-                ],
-                viewrecords: true,
-                rowNum: 20,
-                height: "60%",
-                pager: "#jqGridPager",
-                toppager: true,
-                multiselect: true,
-                jsonReader: {
-                    root: "data.result",
-                    page: "data.pageNo", //当前页数
-                    total: "data.totalPages", // 总页数
-                    records: "data.totalCount", // 总记录数
-                    repeatitems: true,
-                    id: "id"
-                },
-                prmNames: {
-                    page: "pageNo",
-                    rows: "pageSize",
-                    sort: "orderBy",
-                    order: "order"
-                },
-                width: 1000
-            });
-//            $(".my-btn-add").on('click', function (e) {
-//                var that = $(this);
-//                var id = that.attr("data-id");
-//                if(!id){
-//                    id=0;
-//                }
-//                console.log(that);
-//                $('body').popLayer({
-//                    target: "body", // 把弹出层添加到的目标节点
-//                    position: "center",
-//                    data: {id: "saveDiv", source: "remote",url:"/columns/beforeSave/"+id},
-//                    height: 600,
-//                    width: 800
-//                });
-//            });
-
-
-            function getParam() {
-                var self = $("#search_form"), serializeParam = self.serializeArray(), param = {};
-                $.map(serializeParam, function (k, v) {
-                    param[k.name] = format(k.value);
-                });
-                return param;
-            }
-
-            $(".my-btn-search").on('click', function (e) {
-                $("#jqGrid").jqGrid('setGridParam', {
-                    postData: getParam()
-                }).trigger('reloadGrid');
-            });
-//            $(".my-btn-del").on('click', function (e) {
-//                var that = $(this);
-//                var id = that.attr("data-id");
-//                var isBatchDelete = !id;
-//                var ids = [];
-//                if(isBatchDelete){//是批量删除
-//                    ids = $('#jqGrid').jqGrid('getGridParam', 'selarrrow');
-//                }else{//是单个删除
-//                    ids.push(id);
-//                }
-//                console.log(JSON.stringify(ids));
-//                if (!ids || ids.length <= 0) {
-//                    $.MsgBox.Alert("选项为空请至少选择一项！", "warning");
-//                } else {
-//                    $.MsgBox.Confirm("警告", "确定要将选中的" + ids.length + "项删除吗？", function (result) {
-//                        if (result) {
-//                            var trueIdArr=[];
-//                            if(isBatchDelete){
-//                                var rowDataArr = $('#jqGrid').jqGrid('getRowData', ids);
-//                                for(row in rowDataArr){
-//                                    trueIdArr.push(row.id);
-//                                }
-//                            }else{
-//                                trueIdArr = ids;
-//                            }
-//                            console.log("ids:"+JSON.stringify(trueIdArr));
-////                            ajaxPost(actionUrl, $("input[name='checkId']:checked").serialize(), function (result) {
-//                                $.MsgBox.Alert("测试删除成功!");
-////                            });
-//                        }
-//                    });
-//                }
-//            });
-
+        $(function () {
+            console.log("init...");
+            var action = new Columns.Action();
+            action.init();
         });
-        function saveOrUpdate(element) {
-            var that = $(element);
-            var id = that.attr("data-id");
-            if(id=='undefined'||!id){
-                id=0;
-            }
-            $('body').popLayer({
-                target: "body", // 把弹出层添加到的目标节点
-                position: "center",
-                data: {id: "saveDiv", source: "remote",url:"/columns/beforeSave/"+id},
-                height: 600,
-                width: 800,
-                footer:[
-                    {text:"确定",class:"btn btn-info",handler:function (result) {
-                        $.MsgBox.Alert("测试确定成功!");
-                    }},{text:"取消",class:"btn btn-info",handler:function (result) {
-                        $.MsgBox.Alert("测试取消成功!");
-                    }}
-                ]
-            });
-        }
-        function batchDelete(element) {
-            var that = $(element);
-            var id = that.attr("data-id");
-            var isBatchDelete = !id;
-            var ids = [];
-            if(isBatchDelete){//是批量删除
-                ids = $('#jqGrid').jqGrid('getGridParam', 'selarrrow');
-            }else{//是单个删除
-                ids.push(id);
-            }
-            console.log(JSON.stringify(ids));
-            if (!ids || ids.length <= 0) {
-                $.MsgBox.Alert("选项为空请至少选择一项！", "warning");
-            } else {
-                $.MsgBox.Confirm("警告", "确定要将选中的" + ids.length + "项删除吗？", function (result) {
-                    if (result) {
-                        var trueIdArr=[];
-                        if(isBatchDelete){
-                            var rowDataArr = $('#jqGrid').jqGrid('getRowData', ids);
-                            for(row in rowDataArr){
-                                trueIdArr.push(row.id);
-                            }
-                        }else{
-                            trueIdArr = ids;
-                        }
-                        console.log("ids:"+JSON.stringify(trueIdArr));
-//                            ajaxPost(actionUrl, $("input[name='checkId']:checked").serialize(), function (result) {
-                        $.MsgBox.Alert("测试删除成功!");
-//                            });
-                    }
-                });
-            }
-        }
     </script>
+    <#--<script type="text/javascript">-->
+        <#--$(document).ready(function () {-->
+            <#--$("#jqGrid").jqGrid({-->
+                <#--url: 'http://localhost:8080/columns/page',-->
+                <#--mtype: "GET",-->
+                <#--datatype: "json",-->
+                <#--styleUI: 'Bootstrap',-->
+                <#--colModel: [-->
+                    <#--{label: 'ID', name: 'id'},-->
+                    <#--{label: '表名称', name: 'tableName'},-->
+                    <#--{label: '列名称', name: 'columnName'},-->
+                    <#--{label: '数据类型', name: 'dataType'},-->
+                    <#--{label: '注释', name: 'columnComment'},-->
+                    <#--{-->
+                        <#--label: '操作', name: 'operation', formatter: function (o, v, r) {-->
+                        <#--return '<button class="btn btn-primary btn-sm my-btn-add" onclick="saveOrUpdate(this)" data-id='+r.id+'>编辑</button>' +-->
+                                <#--'|<button class="btn btn-danger btn-sm my-btn-del" onclick="batchDelete(this)" data-id='+r.id+'>删除</button>'-->
+                    <#--}-->
+                    <#--}-->
+                <#--],-->
+                <#--viewrecords: true,-->
+                <#--rowNum: 20,-->
+                <#--height: "60%",-->
+                <#--pager: "#jqGridPager",-->
+                <#--toppager: true,-->
+                <#--multiselect: true,-->
+                <#--jsonReader: {-->
+                    <#--root: "data.result",-->
+                    <#--page: "data.pageNo", //当前页数-->
+                    <#--total: "data.totalPages", // 总页数-->
+                    <#--records: "data.totalCount", // 总记录数-->
+                    <#--repeatitems: true,-->
+                    <#--id: "id"-->
+                <#--},-->
+                <#--prmNames: {-->
+                    <#--page: "pageNo",-->
+                    <#--rows: "pageSize",-->
+                    <#--sort: "orderBy",-->
+                    <#--order: "order"-->
+                <#--},-->
+                <#--width: 1000-->
+            <#--});-->
+            <#--function getParam() {-->
+                <#--var self = $("#search_form"), serializeParam = self.serializeArray(), param = {};-->
+                <#--$.map(serializeParam, function (k, v) {-->
+                    <#--param[k.name] = format(k.value);-->
+                <#--});-->
+                <#--return param;-->
+            <#--}-->
+
+            <#--$(".my-btn-search").on('click', function (e) {-->
+                <#--$("#jqGrid").jqGrid('setGridParam', {-->
+                    <#--postData: getParam()-->
+                <#--}).trigger('reloadGrid');-->
+            <#--});-->
+        <#--});-->
+        <#--function saveOrUpdate(element) {-->
+            <#--var that = $(element);-->
+            <#--var id = that.attr("data-id");-->
+            <#--if(id=='undefined'||!id){-->
+                <#--id=0;-->
+            <#--}-->
+            <#--$('body').popLayer({-->
+                <#--target: "body", // 把弹出层添加到的目标节点-->
+                <#--position: "center",-->
+                <#--data: {id: "saveDiv", source: "remote",url:"/columns/beforeSave/"+id},-->
+                <#--height: 600,-->
+                <#--width: 800,-->
+                <#--footer:[-->
+                    <#--{text:"确定",class:"btn btn-info",handler:function (result) {-->
+                        <#--$.MsgBox.Alert("测试确定成功!");-->
+                    <#--}},{text:"取消",class:"btn btn-info",handler:function (result) {-->
+                        <#--$.MsgBox.Alert("测试取消成功!");-->
+                    <#--}}-->
+                <#--]-->
+            <#--});-->
+        <#--}-->
+        <#--function batchDelete(element) {-->
+            <#--var that = $(element);-->
+            <#--var id = that.attr("data-id");-->
+            <#--var isBatchDelete = !id;-->
+            <#--var ids = [];-->
+            <#--if(isBatchDelete){//是批量删除-->
+                <#--ids = $('#jqGrid').jqGrid('getGridParam', 'selarrrow');-->
+            <#--}else{//是单个删除-->
+                <#--ids.push(id);-->
+            <#--}-->
+            <#--console.log(JSON.stringify(ids));-->
+            <#--if (!ids || ids.length <= 0) {-->
+                <#--$.MsgBox.Alert("选项为空请至少选择一项！", "warning");-->
+            <#--} else {-->
+                <#--$.MsgBox.Confirm("警告", "确定要将选中的" + ids.length + "项删除吗？", function (result) {-->
+                    <#--if (result) {-->
+                        <#--var trueIdArr=[];-->
+                        <#--if(isBatchDelete){-->
+                            <#--var rowDataArr = $('#jqGrid').jqGrid('getRowData', ids);-->
+                            <#--for(row in rowDataArr){-->
+                                <#--trueIdArr.push(row.id);-->
+                            <#--}-->
+                        <#--}else{-->
+                            <#--trueIdArr = ids;-->
+                        <#--}-->
+                        <#--console.log("ids:"+JSON.stringify(trueIdArr));-->
+<#--//                            ajaxPost(actionUrl, $("input[name='checkId']:checked").serialize(), function (result) {-->
+                        <#--$.MsgBox.Alert("测试删除成功!");-->
+<#--//                            });-->
+                    <#--}-->
+                <#--});-->
+            <#--}-->
+        <#--}-->
+    <#--</script>-->
 </body>
 </html>

@@ -539,6 +539,7 @@
      */
     $.fn.popLayer.defaults = {
         title: '请选择',
+        title: '请选择',
         type: 'window',
         closeBtn: false,
         footer: false,
