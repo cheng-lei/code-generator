@@ -10,8 +10,8 @@ Columns.Config = {
                 {label: '注释', name: 'columnComment'},
                 {
                     label: '操作', name: 'operation', formatter: function (o, v, r) {
-                    return '<button class="btn btn-primary btn-sm my-btn-add" onclick="saveOrUpdate(this)" data-id=' + r.id + '>编辑</button>' +
-                        '|<button class="btn btn-danger btn-sm my-btn-del" onclick="batchDelete(this)" data-id=' + r.id + '>删除</button>'
+                    return '<button class="btn btn-primary btn-sm my-btn-add" onclick="Columns.Action.Instance.saveOrUpdate(this)" data-id=' + r.id + '>编辑</button>' +
+                        '|<button class="btn btn-danger btn-sm my-btn-del" onclick="Columns.Action.Instance.doBatchDelete(this)" data-id=' + r.id + '>删除</button>'
                 }
                 }
             ]

@@ -93,9 +93,7 @@
     <script src="/js/Columns.Config.js"/></script>
     <script type="text/javascript">
         $(function () {
-            console.log("init...");
-            var action = new Columns.Action();
-            action.init();
+            Columns.Action.Instance.init();
         });
     </script>
     <#--<script type="text/javascript">-->
